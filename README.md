@@ -1,5 +1,13 @@
 # CTF Backend example
 
+## Tech Stack:
+- Framework: **FastAPI**
+- Database: **PostgreSQL (ORM: SQLAlchemy)**
+- Server: **Uvicorn**
+- Test: **TestClient (in FastAPI) / Tox**
+- Containerization: **Docker**
+- CI/CD: **Github Actions** and ship to **Github packages**
+
 ## Setup:
 ```sh
 python -m venv .venv                # Create a python virtual environment
@@ -26,6 +34,7 @@ In case a certain route has multiple complex tasks, they can be separated as a s
 app.py                      # Main file
 docs.py                     # Takes metadata from each route and compiles it for FastAPI
 config.py                   # Environment variables, could use .env instead
+db.py                       # Database schemas, 
 
 Dockerfile
 
@@ -34,8 +43,11 @@ routes/
     L ctf/
         L start.py          # Separate file since it involves much more complex tasks
         L __init__.py       # Rest of the ctf routes go here
+    L admin.py
     L leaderboard.py
     L __init__.py           # Main router under `/api`, any misc routes go here
 helpers/
+    L container.py          # Specific helper functions
+    L __init__.py           # Contains general helper functions
 tests/
 ```
