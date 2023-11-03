@@ -1,7 +1,7 @@
 # Metadata at the top for instant accessibility
 metadata = {
     "name": "ctf",
-    "description": "Operations related to CTF, except create and delete (they are under admin)"
+    "description": "Operations related to CTF, except create and delete (those are under admin)"
 }
 
 from fastapi import APIRouter

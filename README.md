@@ -34,7 +34,7 @@ In case a certain route has multiple complex tasks, they can be separated as a s
 app.py                      # Main file
 docs.py                     # Takes metadata from each route and compiles it for FastAPI
 config.py                   # Environment variables, could use .env instead
-db.py                       # Database schemas, 
+db.py                       # Database schemas and connector (may do a separate directory if complexity exceeds)
 
 Dockerfile
 
@@ -51,3 +51,38 @@ helpers/
     L __init__.py           # Contains general helper functions
 tests/
 ```
+
+## Documenting:
+
+FastAPI generates documentation for the routes using OpenAPI. The documentation is available by default at `/docs` (Swagger UI) and `/redoc` (ReDoc).
+
+There are 2 ways to add documentation for a route:
+
+1. Explicitly mention the summary and description:
+```py
+@router.get("/start/{ctf_id}",
+    description="This description supports **Markdown**.",
+    summary="Start the docker container"
+)
+```
+
+2. Let it infer summary from function name and description from comments:
+```py
+@router.get("/start/{ctf_id}")
+async def start_the_docker_container(ctf_id: int):       # The function name is inferred for the summary
+    # This is a regular single-line comment.
+    # Will not be displayed in the documentation.
+    '''
+    This is a multi-line comment, and will be displayed
+    in the documentation when the route is expanded.
+
+    The cool thing is that Markdown works here!
+    # See, Markdown works!
+    _Pretty_ **cool** right?
+    '''
+    return {"status": "CTF started"}
+```
+
+Result:
+
+![Result](.github/route_docs.png)
